@@ -1,0 +1,31 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Allow authenticated users to read all images
+    match /images/{allPaths=**} {
+      allow read: if request.auth != null;
+    }
+    
+    // Allow authenticated users to upload meal images
+    match /images/meals/{mealId}/{fileName} {
+      allow write: if request.auth != null 
+                   && (fileName.matches('.*\\.(jpg|jpeg|png|gif|webp)$'))
+                   && request.resource.size < 5 * 1024 * 1024; // 5MB max
+    }
+    
+    // Allow authenticated users to upload grocery item images
+    match /images/items/{itemId}/{fileName} {
+      allow write: if request.auth != null 
+                   && (fileName.matches('.*\\.(jpg|jpeg|png|gif|webp)$'))
+                   && request.resource.size < 5 * 1024 * 1024; // 5MB max
+    }
+    
+    // Allow users to upload their profile images
+    match /images/users/{userId}/{fileName} {
+      allow write: if request.auth != null 
+                   && request.auth.uid == userId
+                   && (fileName.matches('.*\\.(jpg|jpeg|png|gif|webp)$'))
+                   && request.resource.size < 5 * 1024 * 1024; // 5MB max
+    }
+  }
+}

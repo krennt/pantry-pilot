@@ -1,0 +1,140 @@
+.meals-page {
+  padding: 20px;
+}
+
+.meals-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.meals-header h1 {
+  margin: 0;
+  color: #4285f4;
+}
+
+.error-message {
+  background-color: #fdeded;
+  color: #d93025;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #5f6368;
+  font-size: 1.1rem;
+}
+
+.empty-list {
+  text-align: center;
+  padding: 40px;
+  color: #5f6368;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.empty-list p {
+  margin: 8px 0;
+}
+
+/* Grid layout for meals */
+.meals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.meal-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+.meal-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.meal-image {
+  height: 180px;
+  overflow: hidden;
+  background-color: #f1f3f4;
+}
+
+.meal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.meal-image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #5f6368;
+  font-size: 0.9rem;
+}
+
+.meal-content {
+  padding: 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.meal-title {
+  margin: 0 0 8px;
+  color: #202124;
+  font-size: 1.2rem;
+}
+
+.meal-description {
+  margin: 0 0 16px;
+  color: #5f6368;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meal-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #5f6368;
+  margin-top: auto;
+}
+
+.meal-servings, .meal-time {
+  display: block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .meals-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .meals-header a {
+    width: 100%;
+    text-align: center;
+  }
+}

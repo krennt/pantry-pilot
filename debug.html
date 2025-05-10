@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Firebase Connection</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        #output {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Debug Firebase Connection</h1>
+    
+    <div>
+        <h2>Authentication</h2>
+        <div>
+            <input type="email" id="email" placeholder="Email" value="john.doe@example.com">
+            <input type="password" id="password" placeholder="Password" value="password123">
+            <button onclick="login()">Login</button>
+            <button onclick="logout()">Logout</button>
+        </div>
+        <div>
+            <p>Auth Status: <span id="authStatus">Not authenticated</span></p>
+        </div>
+    </div>
+    
+    <div>
+        <h2>Firestore Operations</h2>
+        <button onclick="fetchGroceryItems()">Fetch Grocery Items</button>
+        <button onclick="fetchGroceryItemsWithBackend()">Fetch Items via Backend API</button>
+    </div>
+    
+    <div id="output">
+        <h3>Output:</h3>
+        <pre id="outputContent"></pre>
+    </div>
+    
+    <script>
+        // Initialize Firebase with the configuration from .env
+        const firebaseConfig = {
+            apiKey: "AIzaSyAlbpuKAWeIwz7pSIae0wy_4P-wlSfDfWI",
+            authDomain: "pantrypilot-e2ba5.firebaseapp.com",
+            projectId: "pantrypilot-e2ba5",
+            storageBucket: "pantrypilot-e2ba5.firebasestorage.app",
+            messagingSenderId: "850429913938",
+            appId: "1:850429913938:web:9f6840fcc08dbde5d5e88b",
+            measurementId: "G-4NRZX99SQ7"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        
+        // Get references to Firebase services
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        
+        // Output element
+        const outputContent = document.getElementById('outputContent');
+        const authStatus = document.getElementById('authStatus');
+        
+        // Update auth status
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                authStatus.textContent = `Authenticated as ${user.email}`;
+                authStatus.style.color = 'green';
+            } else {
+                authStatus.textContent = 'Not authenticated';
+                authStatus.style.color = 'red';
+            }
+        });
+        
+        // Login function
+        async function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+                log('Login successful');
+            } catch (error) {
+                log(`Login error: ${error.message}`);
+            }
+        }
+        
+        // Logout function
+        async function logout() {
+            try {
+                await auth.signOut();
+                log('Logout successful');
+            } catch (error) {
+                log(`Logout error: ${error.message}`);
+            }
+        }
+        
+        // Fetch grocery items directly from Firestore
+        async function fetchGroceryItems() {
+            try {
+                log('Fetching grocery items from Firestore...');
+                
+                const querySnapshot = await db.collection('grocery_items').orderBy('name').get();
+                
+                const items = [];
+                querySnapshot.forEach(doc => {
+                    items.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+                
+                log(`Successfully fetched ${items.length} items:`);
+                log(JSON.stringify(items, null, 2));
+            } catch (error) {
+                log(`Error fetching grocery items: ${error.message}`);
+                console.error('Full error:', error);
+            }
+        }
+        
+        // Fetch grocery items via backend API
+        async function fetchGroceryItemsWithBackend() {
+            try {
+                log('Fetching grocery items via backend API...');
+                
+                // Get the ID token
+                const idToken = await auth.currentUser.getIdToken();
+                
+                // Make the API request
+                const response = await fetch('http://localhost:5001/pantrypilot-e2ba5/us-central1/api/items', {
+                    headers: {
+                        'Authorization': `Bearer ${idToken}`
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                log(`Successfully fetched items via API:`);
+                log(JSON.stringify(data, null, 2));
+            } catch (error) {
+                log(`Error fetching items via API: ${error.message}`);
+                console.error('Full error:', error);
+            }
+        }
+        
+        // Helper function to log output
+        function log(message) {
+            if (typeof message === 'object') {
+                message = JSON.stringify(message, null, 2);
+            }
+            outputContent.textContent += message + '\n\n';
+            console.log(message);
+        }
+    </script>
+</body>
+</html>

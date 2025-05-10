@@ -1,0 +1,51 @@
+{
+  "name": "pantry-pilot",
+  "version": "1.0.0",
+  "description": "A web application for managing grocery shopping and meal planning",
+  "private": true,
+  "scripts": {
+    "setup": "node setup.js",
+    "install:all": "npm install && npm run install:functions && npm run install:web",
+    "install:functions": "cd functions && npm install",
+    "install:web": "cd web && npm install",
+    "start": "concurrently \"npm run start:functions\" \"npm run start:web\"",
+    "start:functions": "cd functions && npm run serve",
+    "start:web": "cd web && npm start",
+    "build": "npm run build:functions && npm run build:web",
+    "build:functions": "cd functions && npm run build",
+    "build:web": "cd web && npm run build",
+    "test": "npm run test:functions && npm run test:web",
+    "test:functions": "cd functions && npm test",
+    "test:web": "cd web && npm test",
+    "deploy": "firebase deploy",
+    "deploy:functions": "firebase deploy --only functions",
+    "deploy:hosting": "firebase deploy --only hosting",
+    "lint": "npm run lint:functions && npm run lint:web",
+    "lint:functions": "cd functions && npm run lint",
+    "lint:web": "cd web && npm run lint"
+  },
+  "keywords": [
+    "firebase",
+    "react",
+    "typescript",
+    "grocery",
+    "meal-planning"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "firebase-tools": "^14.2.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/pantry-pilot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/pantry-pilot/issues"
+  },
+  "homepage": "https://github.com/yourusername/pantry-pilot#readme"
+}

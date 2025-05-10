@@ -1,0 +1,14 @@
+{
+  "name": "pantrypilot-firestore-scripts",
+  "version": "1.0.0",
+  "description": "Scripts to populate and verify Firestore collections for PantryPilot",
+  "main": "populate-firestore.js",
+  "scripts": {
+    "populate": "node populate-firestore.js",
+    "verify": "node verify-firestore.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^11.8.0"
+  },
+  "private": true
+}
