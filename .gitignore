@@ -40,3 +40,7 @@ yarn-error.log*
 
 # Misc
 .DS_Store
+
+# Debug files
+debug.html
+*debug*.html
