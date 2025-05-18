@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import { useAuth } from '../context/AuthContext';
 import { groceryItemsApi } from '../services/api';
+import { categories, getHighLevelCategory } from '../utils/categoryMapper';
+import { updateItemWithStoreLocation } from '../utils/storeLocationMapper';
 
 import './GroceryItems.css';
 
@@ -9,6 +11,7 @@ interface GroceryItem {
   id: string;
   name: string;
   category: string;
+  storeLocation?: string;
   defaultUnit: string;
   needToBuy: boolean;
   inCart: boolean;
@@ -25,6 +28,7 @@ const GroceryItems: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     category: '',
+    storeLocation: '',
     defaultUnit: '',
     needToBuy: false
   });
@@ -105,14 +109,20 @@ const GroceryItems: React.FC = () => {
       console.log('Sending new item data:', formData);
       
       // Create a properly structured item object that matches backend expectations
-      const newItem = {
+      let newItem = {
         name: formData.name,
         category: formData.category,
+        storeLocation: formData.storeLocation,
         defaultUnit: formData.defaultUnit,
         needToBuy: formData.needToBuy,
         inCart: false
         // Removed quantity and unit to prevent them from showing up in the shopping list
       };
+      
+      // If no store location is provided, try to determine it automatically
+      if (!newItem.storeLocation) {
+        newItem = updateItemWithStoreLocation(newItem);
+      }
       
       // Clear any previous errors
       setError('');
@@ -131,6 +141,7 @@ const GroceryItems: React.FC = () => {
       setFormData({
         name: '',
         category: '',
+        storeLocation: '',
         defaultUnit: '',
         needToBuy: false
       });
@@ -172,6 +183,7 @@ const GroceryItems: React.FC = () => {
     setFormData({
       name: item.name,
       category: item.category,
+      storeLocation: item.storeLocation || '',
       defaultUnit: item.defaultUnit,
       needToBuy: item.needToBuy
     });
@@ -194,15 +206,21 @@ const GroceryItems: React.FC = () => {
       console.log('Sending updated item data:', formData);
       
       // Create a properly structured item object that matches backend expectations
-      const updatedItem = {
+      let updatedItem = {
         name: formData.name,
         category: formData.category,
+        storeLocation: formData.storeLocation,
         defaultUnit: formData.defaultUnit,
         needToBuy: formData.needToBuy,
         // Don't include inCart as we don't want to modify it during an edit
         // Include optional fields if they're needed by the backend
         unit: formData.defaultUnit
       };
+      
+      // If no store location is provided, try to determine it automatically
+      if (!updatedItem.storeLocation) {
+        updatedItem = updateItemWithStoreLocation(updatedItem);
+      }
       
       // Clear any previous errors
       setError('');
@@ -221,6 +239,7 @@ const GroceryItems: React.FC = () => {
       setFormData({
         name: '',
         category: '',
+        storeLocation: '',
         defaultUnit: '',
         needToBuy: false
       });
@@ -334,6 +353,7 @@ const GroceryItems: React.FC = () => {
     setFormData({
       name: '',
       category: '',
+      storeLocation: '',
       defaultUnit: '',
       needToBuy: false
     });
@@ -459,6 +479,18 @@ const GroceryItems: React.FC = () => {
                 value={formData.category}
                 onChange={handleInputChange}
                 required
+              />
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="category" className="form-label">Store Location</label>
+              <input
+                type="text"
+                id="storeLocation"
+                name="storeLocation"
+                className="form-input"
+                value={formData.storeLocation}
+                onChange={handleInputChange}
               />
             </div>
             
@@ -601,7 +633,12 @@ const GroceryItems: React.FC = () => {
                 <div className="item-list">
                   {categoryItems.map(item => (
                     <div key={item.id} className="list-item">
-                      <span className="item-name">{item.name}</span>
+                      <div className="item-details">
+                        <span className="item-name">{item.name}</span>
+                        {item.storeLocation && (
+                          <span className="item-location">Aisle: {item.storeLocation}</span>
+                        )}
+                      </div>
                       <div className="item-actions">
                         <button 
                           className={`btn-shopping-list ${item.needToBuy ? 'active' : ''}`}
@@ -634,8 +671,26 @@ const GroceryItems: React.FC = () => {
             // Display as flat list
             <div className="item-list">
               {filteredItems.map(item => (
-                <div key={item.id} className="list-item">
-                  <span className="item-name">{item.name}</span>
+                <div 
+                  key={item.id} 
+                  className={`list-item category-${getHighLevelCategory(item.storeLocation, item.category)}`}
+                  style={{ 
+                    borderLeft: `4px solid ${categories[getHighLevelCategory(item.storeLocation, item.category)].color}`,
+                    backgroundColor: categories[getHighLevelCategory(item.storeLocation, item.category)].lightColor
+                  }}
+                >
+                  <div className="item-details">
+                    <span className="item-name">
+                      <span 
+                        className="category-indicator" 
+                        style={{ backgroundColor: categories[getHighLevelCategory(item.storeLocation, item.category)].color }}
+                      ></span>
+                      {item.name}
+                    </span>
+                    {item.storeLocation && (
+                      <span className="item-location">Aisle: {item.storeLocation}</span>
+                    )}
+                  </div>
                   <div className="item-actions">
                     <button 
                       className={`btn-shopping-list ${item.needToBuy ? 'active' : ''}`}

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import { useAuth } from '../context/AuthContext';
 import { groceryItemsApi } from '../services/api';
+import { categories, getHighLevelCategory } from '../utils/categoryMapper';
+import { updateItemsWithStoreLocations } from '../utils/storeLocationMapper';
 
 import './ShoppingList.css';
 
@@ -9,6 +11,7 @@ interface GroceryItem {
   id: string;
   name: string;
   category: string;
+  storeLocation?: string;
   needToBuy: boolean;
   inCart: boolean;
   quantity?: number;
@@ -48,10 +51,31 @@ const ShoppingList: React.FC = () => {
           console.log('No items with inCart=true received');
         }
         
-        // Sort by name (no longer grouping by category)
-        shoppingItems.sort((a, b) => a.name.localeCompare(b.name));
+        // Update items with store locations
+        const itemsWithLocations = updateItemsWithStoreLocations(shoppingItems);
         
-        setItems(shoppingItems);
+        // Sort by store location, then by name
+        itemsWithLocations.sort((a, b) => {
+          // First sort by store location
+          if (a.storeLocation && b.storeLocation) {
+            // If both have store locations, compare them
+            const locationCompare = a.storeLocation.localeCompare(b.storeLocation);
+            if (locationCompare !== 0) {
+              return locationCompare;
+            }
+          } else if (a.storeLocation) {
+            // If only a has a store location, it comes first
+            return -1;
+          } else if (b.storeLocation) {
+            // If only b has a store location, it comes first
+            return 1;
+          }
+          
+          // If store locations are the same or both undefined, sort by name
+          return a.name.localeCompare(b.name);
+        });
+        
+        setItems(itemsWithLocations);
       } catch (err) {
         console.error('Error fetching shopping list:', err);
         setError('Failed to load shopping list');
@@ -81,11 +105,18 @@ const ShoppingList: React.FC = () => {
       const needToBuyResult = await groceryItemsApi.toggleNeedToBuy(id);
       
       // Update local state with both changes
-      updatedItems[itemIndex] = {
+      let updatedItem = {
         ...currentItem,
         inCart: true, // Always set to true when moving to cart
         needToBuy: needToBuyResult.needToBuy !== undefined ? needToBuyResult.needToBuy : !currentItem.needToBuy,
       };
+      
+      // Ensure the item has a store location
+      if (!updatedItem.storeLocation) {
+        updatedItem = updateItemsWithStoreLocations([updatedItem])[0];
+      }
+      
+      updatedItems[itemIndex] = updatedItem;
       
       setItems(updatedItems);
       
@@ -113,11 +144,18 @@ const ShoppingList: React.FC = () => {
       const needToBuyResult = await groceryItemsApi.toggleNeedToBuy(id);
       
       // Update local state with both changes
-      updatedItems[itemIndex] = {
+      let updatedItem = {
         ...currentItem,
         inCart: false, // Always set to false when moving back to shopping list
         needToBuy: needToBuyResult.needToBuy !== undefined ? needToBuyResult.needToBuy : !currentItem.needToBuy,
       };
+      
+      // Ensure the item has a store location
+      if (!updatedItem.storeLocation) {
+        updatedItem = updateItemsWithStoreLocations([updatedItem])[0];
+      }
+      
+      updatedItems[itemIndex] = updatedItem;
       
       setItems(updatedItems);
       
@@ -141,10 +179,20 @@ const ShoppingList: React.FC = () => {
       await groceryItemsApi.resetCart();
       
       // Update local state - set inCart to false for all items
-      const updatedItems = items.map(item => ({
-        ...item,
-        inCart: false,
-      }));
+      const updatedItems = items.map(item => {
+        // Create updated item with inCart set to false
+        let updatedItem = {
+          ...item,
+          inCart: false,
+        };
+        
+        // Ensure the item has a store location
+        if (!updatedItem.storeLocation) {
+          updatedItem = updateItemsWithStoreLocations([updatedItem])[0];
+        }
+        
+        return updatedItem;
+      });
       
       setItems(updatedItems);
       
@@ -190,6 +238,19 @@ const ShoppingList: React.FC = () => {
       
       {error && <div className="error-message">{error}</div>}
       
+      {/* Category Legend */}
+      <div className="category-legend">
+        {Object.entries(categories).map(([key, category]) => (
+          <div key={key} className="category-legend-item">
+            <div 
+              className="category-legend-color"
+              style={{ backgroundColor: category.color }}
+            ></div>
+            {category.name}
+          </div>
+        ))}
+      </div>
+      
       {/* Shopping List Section */}
       <div className="list-section">
         <h2 className="section-title">Items to Buy</h2>
@@ -199,26 +260,62 @@ const ShoppingList: React.FC = () => {
           </div>
         ) : (
           <div className="item-container">
-            <ul className="item-list">
-              {shoppingListItems.map(item => (
-                <div 
-                  key={item.id} 
-                  className="item"
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => moveItemToCart(item.id)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      moveItemToCart(item.id);
-                    }
-                  }}
-                >
-                  <div className="item-details">
-                    <span className="item-name">{item.name}</span>
-                  </div>
+            {/* Group items by store location */}
+            {(() => {
+              // Group items by store location
+              const groupedItems: Record<string, GroceryItem[]> = {};
+              
+              // Group items with store location
+              shoppingListItems.forEach(item => {
+                const location = item.storeLocation || 'Other';
+                if (!groupedItems[location]) {
+                  groupedItems[location] = [];
+                }
+                groupedItems[location].push(item);
+              });
+              
+              // Sort locations
+              const sortedLocations = Object.keys(groupedItems).sort((a, b) => {
+                // Put "Other" at the end
+                if (a === 'Other') return 1;
+                if (b === 'Other') return -1;
+                return a.localeCompare(b);
+              });
+              
+              return (
+                <div className="item-list">
+                  {sortedLocations.flatMap(location => 
+                    groupedItems[location].map(item => (
+                      <div 
+                        key={item.id} 
+                        className={`item category-${getHighLevelCategory(item.storeLocation, item.category)}`}
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => moveItemToCart(item.id)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            moveItemToCart(item.id);
+                          }
+                        }}
+                      >
+                        <div className="item-details">
+                          <span className="item-name">
+                            <span 
+                              className="category-indicator" 
+                              style={{ backgroundColor: categories[getHighLevelCategory(item.storeLocation, item.category)].color }}
+                            ></span>
+                            {item.name}
+                          </span>
+                          {item.storeLocation && (
+                            <span className="item-location">Aisle: {item.storeLocation}</span>
+                          )}
+                        </div>
+                      </div>
+                    ))
+                  )}
                 </div>
-              ))}
-            </ul>
+              );
+            })()}
           </div>
         )}
       </div>
@@ -232,26 +329,62 @@ const ShoppingList: React.FC = () => {
           </div>
         ) : (
           <div className="item-container">
-            <ul className="item-list">
-              {cartItems.map(item => (
-                <div 
-                  key={item.id} 
-                  className="item in-cart"
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => moveItemFromCart(item.id)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      moveItemFromCart(item.id);
-                    }
-                  }}
-                >
-                  <div className="item-details">
-                    <span className="item-name">{item.name}</span>
-                  </div>
+            {/* Group items by store location */}
+            {(() => {
+              // Group items by store location
+              const groupedItems: Record<string, GroceryItem[]> = {};
+              
+              // Group items with store location
+              cartItems.forEach(item => {
+                const location = item.storeLocation || 'Other';
+                if (!groupedItems[location]) {
+                  groupedItems[location] = [];
+                }
+                groupedItems[location].push(item);
+              });
+              
+              // Sort locations
+              const sortedLocations = Object.keys(groupedItems).sort((a, b) => {
+                // Put "Other" at the end
+                if (a === 'Other') return 1;
+                if (b === 'Other') return -1;
+                return a.localeCompare(b);
+              });
+              
+              return (
+                <div className="item-list">
+                  {sortedLocations.flatMap(location => 
+                    groupedItems[location].map(item => (
+                      <div 
+                        key={item.id} 
+                        className={`item in-cart category-${getHighLevelCategory(item.storeLocation, item.category)}`}
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => moveItemFromCart(item.id)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            moveItemFromCart(item.id);
+                          }
+                        }}
+                      >
+                        <div className="item-details">
+                          <span className="item-name">
+                            <span 
+                              className="category-indicator" 
+                              style={{ backgroundColor: categories[getHighLevelCategory(item.storeLocation, item.category)].color }}
+                            ></span>
+                            {item.name}
+                          </span>
+                          {item.storeLocation && (
+                            <span className="item-location">Aisle: {item.storeLocation}</span>
+                          )}
+                        </div>
+                      </div>
+                    ))
+                  )}
                 </div>
-              ))}
-            </ul>
+              );
+            })()}
           </div>
         )}
       </div>
