@@ -171,6 +171,7 @@ export const createItem = async (req: Request, res: Response): Promise<void> => 
   const itemData: Omit<GroceryItem, 'id'> = {
     name: req.body.name,
     category: req.body.category,
+    storeLocation: req.body.storeLocation,
     defaultUnit: req.body.defaultUnit,
     needToBuy: req.body.needToBuy !== undefined ? req.body.needToBuy : false,
     inCart: false, // Always initialize as false
@@ -262,6 +263,7 @@ export const updateItem = async (req: Request, res: Response): Promise<void> => 
     
     if (req.body.name !== undefined) updates.name = req.body.name;
     if (req.body.category !== undefined) updates.category = req.body.category;
+    if (req.body.storeLocation !== undefined) updates.storeLocation = req.body.storeLocation;
     if (req.body.defaultUnit !== undefined) updates.defaultUnit = req.body.defaultUnit;
     if (req.body.imageUrl !== undefined && req.body.imageUrl !== null) {
       updates.imageUrl = req.body.imageUrl;

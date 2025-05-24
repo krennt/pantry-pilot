@@ -1,4 +1,4 @@
-import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -15,53 +15,75 @@ interface Meal {
   prepTime?: number;
   cookTime?: number;
   imageUrl?: string;
-  userId: string;
 }
 
 const Meals: React.FC = () => {
   const [meals, setMeals] = useState<Meal[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [retryCount, setRetryCount] = useState(0);
   const { currentUser } = useAuth();
 
-  // Fetch user's meals
-  useEffect(() => {
-    const fetchMeals = async () => {
-      try {
-        setLoading(true);
-        
-        if (!currentUser) {
-          setMeals([]);
-          return;
-        }
-        
-        const q = query(
-          collection(db, 'meals'),
-          where('userId', '==', currentUser.uid),
-          orderBy('name')
-        );
-        
-        const querySnapshot = await getDocs(q);
-        const userMeals: Meal[] = [];
-        
-        querySnapshot.forEach((doc) => {
-          userMeals.push({
-            id: doc.id,
-            ...doc.data() as Omit<Meal, 'id'>
-          });
-        });
-        
-        setMeals(userMeals);
-      } catch (err) {
-        console.error('Error fetching meals:', err);
-        setError('Failed to load meals');
-      } finally {
-        setLoading(false);
+  // Fetch all meals for the family
+  const fetchMeals = async () => {
+    try {
+      setLoading(true);
+      setError(''); // Clear previous errors
+      
+      if (!currentUser) {
+        setMeals([]);
+        return;
       }
-    };
-    
+      
+      console.log('Fetching all family meals...');
+      
+      const q = query(
+        collection(db, 'meals'),
+        orderBy('name')
+      );
+      
+      const querySnapshot = await getDocs(q);
+      const allMeals: Meal[] = [];
+      
+      querySnapshot.forEach((doc) => {
+        allMeals.push({
+          id: doc.id,
+          ...doc.data() as Omit<Meal, 'id'>
+        });
+      });
+      
+      console.log('Successfully fetched meals:', allMeals.length);
+      setMeals(allMeals);
+    } catch (err) {
+      console.error('Error fetching meals:', err);
+      
+      // Provide more specific error messages
+      if (err instanceof Error) {
+        if (err.message.includes('permission-denied')) {
+          setError('You don\'t have permission to access meals. Please make sure you\'re logged in.');
+        } else if (err.message.includes('unavailable')) {
+          setError('Unable to connect to the server. Please check your internet connection and try again.');
+        } else if (err.message.includes('index')) {
+          setError('Database is being updated. Please try again in a few moments.');
+        } else {
+          setError(`Failed to load meals: ${err.message}`);
+        }
+      } else {
+        setError('Failed to load meals. Please try again.');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRetry = () => {
+    setRetryCount(prev => prev + 1);
     fetchMeals();
-  }, [currentUser]);
+  };
+
+  useEffect(() => {
+    fetchMeals();
+  }, [currentUser, retryCount]);
 
   if (loading) {
     return <div className="loading">Loading meals...</div>;
@@ -75,7 +97,14 @@ const Meals: React.FC = () => {
         </Link>
       </div>
       
-      {error && <div className="error-message">{error}</div>}
+      {error && (
+        <div className="error-message">
+          <p>{error}</p>
+          <button onClick={handleRetry} className="btn btn-secondary">
+            Try Again
+          </button>
+        </div>
+      )}
       
       {meals.length === 0 ? (
         <div className="empty-list">

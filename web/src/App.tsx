@@ -3,9 +3,11 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
 // Import components
 import BottomNavigation from './components/BottomNavigation';
+import ErrorBoundary from './components/ErrorBoundary';
 // Import context providers
 import { AuthProvider, useAuth } from './context/AuthContext';
 // Import pages
+import EditMeal from './pages/EditMeal';
 import GroceryItems from './pages/GroceryItems';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -30,8 +32,26 @@ const AppContent: React.FC = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/items" element={<GroceryItems />} />
           <Route path="/shopping" element={<ShoppingList />} />
-          <Route path="/meals" element={<Meals />} />
-          <Route path="/meals/:id" element={<MealDetail />} />
+          <Route path="/meals" element={
+            <ErrorBoundary>
+              <Meals />
+            </ErrorBoundary>
+          } />
+          <Route path="/meals/new" element={
+            <ErrorBoundary>
+              <EditMeal />
+            </ErrorBoundary>
+          } />
+          <Route path="/meals/:id" element={
+            <ErrorBoundary>
+              <MealDetail />
+            </ErrorBoundary>
+          } />
+          <Route path="/meals/:id/edit" element={
+            <ErrorBoundary>
+              <EditMeal />
+            </ErrorBoundary>
+          } />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

@@ -19,6 +19,7 @@ export interface GroceryItem {
   id?: string;
   name: string;
   category: string;
+  storeLocation?: string;
   defaultUnit: string;
   imageUrl?: string;
   needToBuy: boolean;
@@ -34,7 +35,7 @@ export interface GroceryItem {
  */
 export interface Meal {
   id?: string;
-  userId: string;
+  userId?: string; // Optional for family sharing
   name: string;
   description?: string;
   imageUrl?: string;

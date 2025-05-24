@@ -4,7 +4,7 @@ import { sendSuccess, sendError } from '../shared/utils/response';
 import { Meal, MealIngredient } from '../shared/types/models';
 
 /**
- * Get all meals for the authenticated user
+ * Get all meals (family sharing - all authenticated users can see all meals)
  */
 export const getAllMeals = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -15,7 +15,6 @@ export const getAllMeals = async (req: Request, res: Response): Promise<void> =>
 
     const mealsSnapshot = await db
       .collection('meals')
-      .where('userId', '==', req.user.uid)
       .orderBy('createdAt', 'desc')
       .get();
     
@@ -53,11 +52,6 @@ export const getMealById = async (req: Request, res: Response): Promise<void> =>
     
     const mealData = mealDoc.data() as Omit<Meal, 'id'>;
     
-    // Check if the meal belongs to the user
-    if (mealData.userId !== req.user.uid) {
-      sendError(res, 'Unauthorized: This meal does not belong to you', 403);
-      return;
-    }
     
     // Get meal ingredients
     const ingredientsSnapshot = await db
@@ -176,7 +170,7 @@ export const updateMeal = async (req: Request, res: Response): Promise<void> => 
 
     const { id } = req.params;
     
-    // Check if meal exists and belongs to the user
+    // Check if meal exists
     const mealDoc = await db.collection('meals').doc(id).get();
     
     if (!mealDoc.exists) {
@@ -184,12 +178,6 @@ export const updateMeal = async (req: Request, res: Response): Promise<void> => 
       return;
     }
     
-    const mealData = mealDoc.data() as Omit<Meal, 'id'>;
-    
-    if (mealData.userId !== req.user.uid) {
-      sendError(res, 'Unauthorized: This meal does not belong to you', 403);
-      return;
-    }
     
     // Update fields that are provided
     const updates: Partial<Meal> = {};
@@ -222,18 +210,11 @@ export const deleteMeal = async (req: Request, res: Response): Promise<void> => 
 
     const { id } = req.params;
     
-    // Check if meal exists and belongs to the user
+    // Check if meal exists
     const mealDoc = await db.collection('meals').doc(id).get();
     
     if (!mealDoc.exists) {
       sendError(res, 'Meal not found', 404);
-      return;
-    }
-    
-    const mealData = mealDoc.data() as Omit<Meal, 'id'>;
-    
-    if (mealData.userId !== req.user.uid) {
-      sendError(res, 'Unauthorized: This meal does not belong to you', 403);
       return;
     }
     
@@ -275,18 +256,11 @@ export const addIngredient = async (req: Request, res: Response): Promise<void> 
 
     const { id } = req.params;
     
-    // Check if meal exists and belongs to the user
+    // Check if meal exists
     const mealDoc = await db.collection('meals').doc(id).get();
     
     if (!mealDoc.exists) {
       sendError(res, 'Meal not found', 404);
-      return;
-    }
-    
-    const mealData = mealDoc.data() as Omit<Meal, 'id'>;
-    
-    if (mealData.userId !== req.user.uid) {
-      sendError(res, 'Unauthorized: This meal does not belong to you', 403);
       return;
     }
     
@@ -342,18 +316,11 @@ export const updateIngredient = async (req: Request, res: Response): Promise<voi
 
     const { id, ingredientId } = req.params;
     
-    // Check if meal exists and belongs to the user
+    // Check if meal exists
     const mealDoc = await db.collection('meals').doc(id).get();
     
     if (!mealDoc.exists) {
       sendError(res, 'Meal not found', 404);
-      return;
-    }
-    
-    const mealData = mealDoc.data() as Omit<Meal, 'id'>;
-    
-    if (mealData.userId !== req.user.uid) {
-      sendError(res, 'Unauthorized: This meal does not belong to you', 403);
       return;
     }
     
@@ -406,18 +373,11 @@ export const removeIngredient = async (req: Request, res: Response): Promise<voi
 
     const { id, ingredientId } = req.params;
     
-    // Check if meal exists and belongs to the user
+    // Check if meal exists
     const mealDoc = await db.collection('meals').doc(id).get();
     
     if (!mealDoc.exists) {
       sendError(res, 'Meal not found', 404);
-      return;
-    }
-    
-    const mealData = mealDoc.data() as Omit<Meal, 'id'>;
-    
-    if (mealData.userId !== req.user.uid) {
-      sendError(res, 'Unauthorized: This meal does not belong to you', 403);
       return;
     }
     
@@ -465,18 +425,11 @@ export const addToShoppingList = async (req: Request, res: Response): Promise<vo
 
     const { id } = req.params;
     
-    // Check if meal exists and belongs to the user
+    // Check if meal exists
     const mealDoc = await db.collection('meals').doc(id).get();
     
     if (!mealDoc.exists) {
       sendError(res, 'Meal not found', 404);
-      return;
-    }
-    
-    const mealData = mealDoc.data() as Omit<Meal, 'id'>;
-    
-    if (mealData.userId !== req.user.uid) {
-      sendError(res, 'Unauthorized: This meal does not belong to you', 403);
       return;
     }
     

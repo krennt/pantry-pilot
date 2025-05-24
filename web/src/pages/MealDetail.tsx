@@ -77,12 +77,6 @@ const MealDetail: React.FC = () => {
           ...mealDoc.data()
         } as Meal;
         
-        // Check if the meal belongs to the current user
-        if (mealData.userId !== currentUser.uid) {
-          setError('You do not have permission to view this meal');
-          setLoading(false);
-          return;
-        }
         
         setMeal(mealData);
         

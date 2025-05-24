@@ -1,0 +1,967 @@
+{
+  "users": {
+    "user1": {
+      "uid": "user1",
+      "email": "john.doe@example.com",
+      "displayName": "John Doe",
+      "createdAt": {
+        "_type": "timestamp",
+        "value": "2025-04-19T20:39:52.576Z"
+      }
+    },
+    "user2": {
+      "uid": "user2",
+      "email": "jane.smith@example.com",
+      "displayName": "Jane Smith",
+      "createdAt": {
+        "_type": "timestamp",
+        "value": "2025-04-19T20:39:52.576Z"
+      }
+    },
+    "user3": {
+      "uid": "user3",
+      "email": "alex.wilson@example.com",
+      "displayName": "Alex Wilson",
+      "createdAt": {
+        "_type": "timestamp",
+        "value": "2025-04-19T20:39:52.576Z"
+      }
+    }
+  },
+  "grocery_items": {
+    "1Uphf1ddQRCVvUm2ksnB": {
+      "name": "Mushrooms ",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-04T22:06:01.953Z"
+      },
+      "inCart": false
+    },
+    "1wip3eAhfJoIufeTW4Tc": {
+      "name": "Rice",
+      "category": "Pantry",
+      "defaultUnit": "lb",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/items%2Frice.jpg",
+      "needToBuy": false,
+      "inCart": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-04-19T20:39:52.716Z"
+      }
+    },
+    "31zHUPW7uUIXIxO0gw38": {
+      "name": "Apple Sauce",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-04T22:06:01.954Z"
+      },
+      "inCart": false
+    },
+    "3upwJmS8EX8c2gsgIQ9H": {
+      "name": "Carrots",
+      "category": "Produce",
+      "defaultUnit": "lb",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/items%2Fcarrots.jpg",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-04-24T20:22:52.910Z"
+      },
+      "inCart": false
+    },
+    "4FabQYxUceU4TqIjdEyq": {
+      "name": "Pie crust ",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:01:57.586Z"
+      },
+      "needToBuy": false
+    },
+    "5Ua9AW6fl3T0qhLj4gIW": {
+      "name": "BBQ Sauce",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-04T22:06:01.954Z"
+      },
+      "inCart": false
+    },
+    "7uq24RzA4sLxfnPUJitQ": {
+      "name": "Cauliflower ",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:11:01.951Z"
+      },
+      "needToBuy": false
+    },
+    "9Jk8xGPk3JRAINQrOdup": {
+      "name": "Bagels",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:22:40.250Z"
+      },
+      "needToBuy": false
+    },
+    "9ZYzP7UrKHVmiNKkXCRD": {
+      "name": "Cheddar Cheese",
+      "category": "Dairy",
+      "defaultUnit": "oz",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/items%2Fcheddar.jpg",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-04-24T20:22:52.910Z"
+      },
+      "inCart": false
+    },
+    "A1B2TdWBf7ZIcQH3CxD7": {
+      "name": "Grapes",
+      "category": "Produce",
+      "defaultUnit": "1 bunch",
+      "quantity": 1,
+      "unit": "1 bunch",
+      "imageUrl": "https://via.placeholder.com/150",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:12:52.942Z"
+      },
+      "needToBuy": false
+    },
+    "AKH2R7jgjZ2ecQV7E8vL": {
+      "name": "Steak",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:05:44.023Z"
+      },
+      "needToBuy": false
+    },
+    "CnlxFvCSNmWpQ1hLN2Fp": {
+      "name": "Bananas",
+      "category": "Produce",
+      "defaultUnit": "bunch",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/items%2Fbananas.jpg",
+      "unit": "bunch",
+      "updatedBy": "Z1hx6z2YLNTYpJBuOHZJ2dSHLKL2",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-04-23T21:49:15.359Z"
+      },
+      "inCart": false
+    },
+    "Cuto56DddmmBRwtW1Woc": {
+      "name": "Eggplant ",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:10:54.230Z"
+      },
+      "needToBuy": false
+    },
+    "CxMy9ysUTfKhApgLHey1": {
+      "name": "Apples",
+      "category": "Produce",
+      "defaultUnit": "1 bunch",
+      "quantity": 1,
+      "unit": "1 bunch",
+      "imageUrl": "https://via.placeholder.com/150",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-04-24T00:41:29.667Z"
+      },
+      "updatedBy": "Z1hx6z2YLNTYpJBuOHZJ2dSHLKL2",
+      "inCart": false
+    },
+    "I496K4O895ha7SZuxHjh": {
+      "name": "Sweet potatos",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:16:35.660Z"
+      },
+      "needToBuy": false
+    },
+    "K1axqMj615iADOaqI81u": {
+      "name": "Salmon",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-04T20:58:54.495Z"
+      },
+      "needToBuy": false
+    },
+    "N9NS37yx6nZBg4biUwgb": {
+      "name": "Asparagus ",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-04T22:06:01.955Z"
+      },
+      "inCart": false
+    },
+    "NND3oAZ8B4ZlN9pWm87T": {
+      "name": "Small Potatoes ",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:16:33.733Z"
+      },
+      "needToBuy": false
+    },
+    "NTCiJY3nz1tpqKBoGOgd": {
+      "name": "Yogurt Flips",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-04T22:06:01.955Z"
+      },
+      "inCart": false
+    },
+    "Nv0KdRyS2OP33VsZjhaK": {
+      "name": "Yasso Ice Cream Bars",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:33:35.983Z"
+      },
+      "needToBuy": false
+    },
+    "O76mluYDT2uRSz6UxMw6": {
+      "name": "Peanuts ",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-04T22:06:01.955Z"
+      },
+      "inCart": false
+    },
+    "OD0m5dNcVN4Ccyk2or4H": {
+      "name": "Yogurt",
+      "category": "Dairy",
+      "quantity": 1,
+      "imageUrl": "https://via.placeholder.com/150",
+      "defaultUnit": "4 Containers",
+      "unit": "4 Containers",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:01:24.463Z"
+      },
+      "needToBuy": false
+    },
+    "Oqwe3AqtZBjfp02gFlhZ": {
+      "name": "Potato Chips",
+      "category": "Snacks",
+      "defaultUnit": "bag",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/items%2Fpotato_chips.jpg",
+      "updatedBy": "Z1hx6z2YLNTYpJBuOHZJ2dSHLKL2",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-04-24T00:41:41.508Z"
+      },
+      "inCart": false
+    },
+    "QqvHPnvrVvU8dXkU2d6l": {
+      "name": "Frosted Mini Wheats",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-04T22:06:01.955Z"
+      },
+      "inCart": false
+    },
+    "ScheCjueozCbqmU3wYt6": {
+      "name": "Ground Beef",
+      "category": "Meat",
+      "defaultUnit": "lb",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/items%2Fground_beef.jpg",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:04:07.424Z"
+      },
+      "needToBuy": false
+    },
+    "SqmNnP8MX7Jiqbjm0poV": {
+      "name": "Milk",
+      "category": "Dairy",
+      "defaultUnit": "gallon",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/items%2Fmilk.jpg",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-04T22:06:01.956Z"
+      },
+      "inCart": false
+    },
+    "U82h9ccU9EbCUHardSYT": {
+      "name": "Tortilla chips ",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:28:58.491Z"
+      },
+      "needToBuy": false
+    },
+    "UefA4UF3RTYFxFPhG2BR": {
+      "name": "Tortillas ",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:10:49.482Z"
+      },
+      "needToBuy": false
+    },
+    "UvJc6dV4BMCqW9U2JDHd": {
+      "name": "Toilet Paper ",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-04T22:06:01.956Z"
+      },
+      "inCart": false
+    },
+    "VN4H8IefYkQD9IX22UIx": {
+      "name": "Chocolate chips",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:28:56.902Z"
+      },
+      "needToBuy": false
+    },
+    "VZuJxyRds7l14AY7Rcl6": {
+      "name": "Ice Cream",
+      "category": "Frozen",
+      "defaultUnit": "pint",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/items%2Fice_cream.jpg",
+      "needToBuy": false,
+      "inCart": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-04-19T20:39:52.716Z"
+      }
+    },
+    "WA8A1iI8knSChYVEEPwo": {
+      "name": "Pineapple Cups",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-04T22:06:01.956Z"
+      },
+      "inCart": false
+    },
+    "WqXygtuxxC1IdlZxUjtL": {
+      "name": "Pasta",
+      "category": "Pantry",
+      "defaultUnit": "box",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/items%2Fpasta.jpg",
+      "updatedBy": "Z1hx6z2YLNTYpJBuOHZJ2dSHLKL2",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-04-21T00:11:32.336Z"
+      },
+      "inCart": false
+    },
+    "ZP4RlHwa1BR2TyW8WAr9": {
+      "name": "Cream cheese ",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:01:36.540Z"
+      },
+      "needToBuy": false
+    },
+    "Zq9df8d4ofT0fbO44NDO": {
+      "name": "Bread",
+      "category": "Bakery",
+      "defaultUnit": "loaf",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/items%2Fbread.jpg",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:16:32.204Z"
+      },
+      "needToBuy": false
+    },
+    "b2Bd5h3qfLtAQt4mLWmj": {
+      "name": "Guacamole ",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:12:54.429Z"
+      },
+      "needToBuy": false
+    },
+    "bzniNXjJ0p82wLBBKV7w": {
+      "name": "Coffee",
+      "category": "Beverages",
+      "defaultUnit": "bag",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/items%2Fcoffee.jpg",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-04T22:06:01.956Z"
+      },
+      "inCart": false
+    },
+    "coKOOgYKlUlAV79loYPC": {
+      "name": "Strawberries ",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:10:44.746Z"
+      },
+      "needToBuy": false
+    },
+    "dApOKjkUoMkoLyyfSEA5": {
+      "name": "Hamburgers",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:04:23.515Z"
+      },
+      "needToBuy": false
+    },
+    "moVDU8mJ4rKgdkwltV7g": {
+      "name": "Spinach",
+      "category": "Produce",
+      "defaultUnit": "oz",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/items%2Fspinach.jpg",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:07:59.699Z"
+      },
+      "needToBuy": false
+    },
+    "mv4kjiT675plYMh6qfv8": {
+      "name": "Tomato Sauce",
+      "category": "Pantry",
+      "defaultUnit": "can",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/items%2Ftomato_sauce.jpg",
+      "needToBuy": false,
+      "inCart": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-04-19T20:39:52.716Z"
+      }
+    },
+    "n4aM9XMuc9f0o8UARqAm": {
+      "name": "Flat cheddar ",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-04T22:06:01.956Z"
+      },
+      "inCart": false
+    },
+    "nhfR2BnQaOKmNPhemPQB": {
+      "name": "Fairlife chocolate milk ",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:02:46.454Z"
+      },
+      "needToBuy": false
+    },
+    "qeesDW7pAJKPkcGn48my": {
+      "name": "Eggs",
+      "category": "Dairy",
+      "defaultUnit": "dozen",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/items%2Feggs.jpg",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:01:14.213Z"
+      },
+      "needToBuy": false
+    },
+    "qh8mjeNPOZalmNcMgnQz": {
+      "name": "Capers ",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-04T22:06:01.956Z"
+      },
+      "inCart": false
+    },
+    "qmpJwLxKOJPBMLpah63A": {
+      "name": "Brussel sprouts ",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:12:55.813Z"
+      },
+      "needToBuy": false
+    },
+    "rG54tfCTnrdofEos1Ioc": {
+      "name": "Boneless chicken thighs ",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:13:02.110Z"
+      },
+      "needToBuy": false
+    },
+    "t00nSznt0W8VdBWwRKQg": {
+      "name": "Spaghetti sauce ",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:25:09.255Z"
+      },
+      "needToBuy": false
+    },
+    "yQCHiyHFb7oVpfsNA8BF": {
+      "name": "Olive Oil",
+      "category": "Pantry",
+      "defaultUnit": "bottle",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/items%2Folive_oil.jpg",
+      "updatedBy": "Z1hx6z2YLNTYpJBuOHZJ2dSHLKL2",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-04-23T21:49:15.360Z"
+      },
+      "inCart": false
+    },
+    "yTWIdp2ZKqt9V0SPjfiD": {
+      "name": "Chicken Breast",
+      "category": "Meat",
+      "defaultUnit": "lb",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/items%2Fchicken_breast.jpg",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-04-24T20:22:52.910Z"
+      },
+      "inCart": false
+    },
+    "ydioftiWiFPhyxplOppS": {
+      "name": "Broccoli ",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:12:57.044Z"
+      },
+      "needToBuy": false
+    },
+    "yun7FMMvChi3OfeR6qZr": {
+      "name": "Hamburger buns",
+      "category": "General",
+      "defaultUnit": "pcs",
+      "updatedBy": "i6ZdQRg6cDe1MR3f6cUSpuhs0m83",
+      "imageUrl": "https://via.placeholder.com/150",
+      "inCart": true,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-05-09T21:16:30.775Z"
+      },
+      "needToBuy": false
+    },
+    "yxhz9GLAkMsRtvS32wkG": {
+      "name": "Chocolate",
+      "category": "Snacks",
+      "defaultUnit": "bar",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/items%2Fchocolate.jpg",
+      "updatedBy": "Z1hx6z2YLNTYpJBuOHZJ2dSHLKL2",
+      "needToBuy": false,
+      "lastUpdated": {
+        "_type": "timestamp",
+        "value": "2025-04-23T21:49:15.360Z"
+      },
+      "inCart": false
+    }
+  },
+  "meals": {
+    "EvmowSrthTfnQDeRBEUA": {
+      "userId": "user1",
+      "name": "Spaghetti Bolognese",
+      "description": "Classic Italian pasta dish with a rich meat sauce",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/meals%2Fspaghetti_bolognese.jpg",
+      "servings": 4,
+      "prepTime": 15,
+      "cookTime": 30,
+      "createdAt": {
+        "_type": "timestamp",
+        "value": "2025-04-19T20:39:52.874Z"
+      },
+      "_subcollections": {
+        "ingredients": {
+          "2edzbPSqj6nc7sFJoDSC": {
+            "itemId": "mv4kjiT675plYMh6qfv8",
+            "quantity": 2,
+            "unit": "can",
+            "mealId": "EvmowSrthTfnQDeRBEUA"
+          },
+          "BFghP2Xx2OHs2C2cgCAq": {
+            "itemId": "WqXygtuxxC1IdlZxUjtL",
+            "quantity": 1,
+            "unit": "box",
+            "mealId": "EvmowSrthTfnQDeRBEUA"
+          },
+          "CNyy8isnEbqIEK0BPTrz": {
+            "itemId": "yQCHiyHFb7oVpfsNA8BF",
+            "quantity": 2,
+            "unit": "tbsp",
+            "mealId": "EvmowSrthTfnQDeRBEUA"
+          },
+          "HHw3OYQ0UiArTEXGiYV6": {
+            "itemId": "ScheCjueozCbqmU3wYt6",
+            "quantity": 1,
+            "unit": "lb",
+            "mealId": "EvmowSrthTfnQDeRBEUA"
+          }
+        }
+      }
+    },
+    "Pd6GVzWdip9v8K6pTzhn": {
+      "userId": "user3",
+      "name": "Beef Tacos",
+      "description": "Delicious beef tacos with fresh toppings",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/meals%2Fbeef_tacos.jpg",
+      "servings": 4,
+      "prepTime": 20,
+      "cookTime": 15,
+      "createdAt": {
+        "_type": "timestamp",
+        "value": "2025-04-19T20:39:52.874Z"
+      },
+      "_subcollections": {
+        "ingredients": {
+          "91hMW6wEojKwnrvmLe9W": {
+            "itemId": "9ZYzP7UrKHVmiNKkXCRD",
+            "quantity": 8,
+            "unit": "oz",
+            "mealId": "Pd6GVzWdip9v8K6pTzhn"
+          },
+          "K8Dcvi2paK1ve59OwFsy": {
+            "itemId": "ScheCjueozCbqmU3wYt6",
+            "quantity": 1,
+            "unit": "lb",
+            "mealId": "Pd6GVzWdip9v8K6pTzhn"
+          },
+          "TVen0m3y7GesjoZTnfGu": {
+            "itemId": "mv4kjiT675plYMh6qfv8",
+            "quantity": 1,
+            "unit": "can",
+            "mealId": "Pd6GVzWdip9v8K6pTzhn"
+          }
+        }
+      }
+    },
+    "QU3FFig2s69BtQVEuJTd": {
+      "userId": "user2",
+      "name": "Vegetable Salad",
+      "description": "Fresh and healthy vegetable salad",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/meals%2Fvegetable_salad.jpg",
+      "servings": 2,
+      "prepTime": 15,
+      "cookTime": 0,
+      "createdAt": {
+        "_type": "timestamp",
+        "value": "2025-04-19T20:39:52.874Z"
+      },
+      "_subcollections": {
+        "ingredients": {
+          "BDZtRneFNVaIEQwEwEdh": {
+            "itemId": "moVDU8mJ4rKgdkwltV7g",
+            "quantity": 4,
+            "unit": "cup",
+            "mealId": "QU3FFig2s69BtQVEuJTd"
+          },
+          "MfMWbOGwoeB2fWLzscoa": {
+            "itemId": "3upwJmS8EX8c2gsgIQ9H",
+            "quantity": 1,
+            "unit": "cup",
+            "mealId": "QU3FFig2s69BtQVEuJTd"
+          },
+          "TnASCD8TxncTEO3N9XCL": {
+            "itemId": "yQCHiyHFb7oVpfsNA8BF",
+            "quantity": 2,
+            "unit": "tbsp",
+            "mealId": "QU3FFig2s69BtQVEuJTd"
+          }
+        }
+      }
+    },
+    "SYoyD3wXOsfnT9oYDAao": {
+      "userId": "user1",
+      "name": "Chicken Stir Fry",
+      "description": "Quick and healthy stir fry with fresh vegetables",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/meals%2Fchicken_stir_fry.jpg",
+      "servings": 2,
+      "prepTime": 20,
+      "cookTime": 15,
+      "createdAt": {
+        "_type": "timestamp",
+        "value": "2025-04-19T20:39:52.874Z"
+      },
+      "_subcollections": {
+        "ingredients": {
+          "Z4WylVfYVAwvv8l1mZFv": {
+            "itemId": "yQCHiyHFb7oVpfsNA8BF",
+            "quantity": 1,
+            "unit": "tbsp",
+            "mealId": "SYoyD3wXOsfnT9oYDAao"
+          },
+          "nLjuw96MAIzVIoNWLdi4": {
+            "itemId": "yTWIdp2ZKqt9V0SPjfiD",
+            "quantity": 1,
+            "unit": "lb",
+            "mealId": "SYoyD3wXOsfnT9oYDAao"
+          },
+          "tcZve0XcavJ6NzcuJwVM": {
+            "itemId": "3upwJmS8EX8c2gsgIQ9H",
+            "quantity": 2,
+            "unit": "cup",
+            "mealId": "SYoyD3wXOsfnT9oYDAao"
+          },
+          "tzOZKGs8QBCT8EY5rn2v": {
+            "itemId": "1wip3eAhfJoIufeTW4Tc",
+            "quantity": 1,
+            "unit": "cup",
+            "mealId": "SYoyD3wXOsfnT9oYDAao"
+          }
+        }
+      }
+    },
+    "e7BGv2lm5ntKGg9HcygQ": {
+      "userId": "user1",
+      "name": "Breakfast Sandwich",
+      "description": "Quick and easy breakfast sandwich",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/meals%2Fbreakfast_sandwich.jpg",
+      "servings": 1,
+      "prepTime": 5,
+      "cookTime": 10,
+      "createdAt": {
+        "_type": "timestamp",
+        "value": "2025-04-19T20:39:52.874Z"
+      },
+      "_subcollections": {
+        "ingredients": {
+          "DUiXosY0e2OI16lu8kEs": {
+            "itemId": "Zq9df8d4ofT0fbO44NDO",
+            "quantity": 2,
+            "unit": "slice",
+            "mealId": "e7BGv2lm5ntKGg9HcygQ"
+          },
+          "dpbujqS7xiAsAGjie7pE": {
+            "itemId": "9ZYzP7UrKHVmiNKkXCRD",
+            "quantity": 1,
+            "unit": "slice",
+            "mealId": "e7BGv2lm5ntKGg9HcygQ"
+          },
+          "xJ8ncgpLQkr5aI8oVmnx": {
+            "itemId": "qeesDW7pAJKPkcGn48my",
+            "quantity": 1,
+            "unit": "unit",
+            "mealId": "e7BGv2lm5ntKGg9HcygQ"
+          }
+        }
+      }
+    },
+    "gkMXa3ScImzn2FUbe9eu": {
+      "userId": "user2",
+      "name": "Fruit Smoothie",
+      "description": "Refreshing fruit smoothie for breakfast",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/meals%2Ffruit_smoothie.jpg",
+      "servings": 1,
+      "prepTime": 5,
+      "cookTime": 0,
+      "createdAt": {
+        "_type": "timestamp",
+        "value": "2025-04-19T20:39:52.874Z"
+      },
+      "_subcollections": {
+        "ingredients": {
+          "GyGCHIplobanUgo9wRNt": {
+            "itemId": "SqmNnP8MX7Jiqbjm0poV",
+            "quantity": 1,
+            "unit": "cup",
+            "mealId": "gkMXa3ScImzn2FUbe9eu"
+          },
+          "zn7fpCPK5PCpThnY0t7O": {
+            "itemId": "CnlxFvCSNmWpQ1hLN2Fp",
+            "quantity": 1,
+            "unit": "unit",
+            "mealId": "gkMXa3ScImzn2FUbe9eu"
+          }
+        }
+      }
+    },
+    "tfmosO1c3SnqfIBhrNbF": {
+      "userId": "user3",
+      "name": "Pizza Night",
+      "description": "Easy frozen pizza for a quick dinner",
+      "imageUrl": "https://firebasestorage.googleapis.com/v0/b/pantrypilot-demo.appspot.com/o/meals%2Fpizza_night.jpg",
+      "servings": 3,
+      "prepTime": 0,
+      "cookTime": 20,
+      "createdAt": {
+        "_type": "timestamp",
+        "value": "2025-04-19T20:39:52.874Z"
+      },
+      "_subcollections": {
+        "ingredients": {
+          "FJxYxHM9NXrFQ0IePAAX": {
+            "itemId": "M7BNiu9HoNsaSo0RMBpY",
+            "quantity": 1,
+            "unit": "box",
+            "mealId": "tfmosO1c3SnqfIBhrNbF"
+          }
+        }
+      }
+    }
+  }
+}

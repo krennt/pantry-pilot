@@ -382,6 +382,258 @@ export const groceryItemsApi = {
   }
 };
 
+/**
+ * Meals API
+ */
+export const mealsApi = {
+  /**
+   * Get all meals
+   */
+  getAllMeals: async () => {
+    try {
+      console.log('API getAllMeals - Fetching all meals');
+      
+      const response = await apiRequest<{ success: boolean; data: { meals: any[] } }>('/meals');
+      
+      console.log('API getAllMeals - Response:', response);
+      
+      if (!response.data || !Array.isArray(response.data.meals)) {
+        console.error('API getAllMeals - Invalid response format:', response);
+        throw new Error('Invalid response format from server');
+      }
+      
+      return response.data.meals;
+    } catch (error) {
+      console.error('API getAllMeals - Error details:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Get a specific meal by ID with ingredients
+   */
+  getMealById: async (id: string) => {
+    try {
+      console.log(`API getMealById - Fetching meal with ID: ${id}`);
+      
+      const response = await apiRequest<{ success: boolean; data: { meal: any } }>(`/meals/${id}`);
+      
+      console.log('API getMealById - Response:', response);
+      
+      if (!response.data || !response.data.meal) {
+        console.error('API getMealById - Invalid response format:', response);
+        throw new Error('Invalid response format from server');
+      }
+      
+      return response.data.meal;
+    } catch (error) {
+      console.error('API getMealById - Error details:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Create a new meal
+   */
+  createMeal: async (mealData: any) => {
+    try {
+      console.log('API createMeal - Sending data:', mealData);
+      
+      const response = await apiRequest<{ success: boolean; data: { meal: any } }>(
+        '/meals',
+        'POST',
+        mealData
+      );
+      
+      console.log('API createMeal - Response:', response);
+      
+      if (!response.data || !response.data.meal) {
+        console.error('API createMeal - Invalid response format:', response);
+        throw new Error('Invalid response format from server');
+      }
+      
+      return response.data.meal;
+    } catch (error) {
+      console.error('API createMeal - Error details:', error);
+      
+      if (error instanceof Error) {
+        const enhancedError = new Error(`Failed to create meal: ${error.message}`);
+        enhancedError.stack = error.stack;
+        throw enhancedError;
+      }
+      
+      throw error;
+    }
+  },
+
+  /**
+   * Update a meal
+   */
+  updateMeal: async (id: string, mealData: any) => {
+    try {
+      console.log('API updateMeal - Sending data:', { id, ...mealData });
+      
+      const response = await apiRequest<{ success: boolean; data: { id: string } }>(
+        `/meals/${id}`,
+        'PUT',
+        mealData
+      );
+      
+      console.log('API updateMeal - Response:', response);
+      
+      if (!response.data) {
+        console.error('API updateMeal - Invalid response format:', response);
+        throw new Error('Invalid response format from server');
+      }
+      
+      return response.data;
+    } catch (error) {
+      console.error('API updateMeal - Error details:', error);
+      
+      if (error instanceof Error) {
+        const enhancedError = new Error(`Failed to update meal: ${error.message}`);
+        enhancedError.stack = error.stack;
+        throw enhancedError;
+      }
+      
+      throw error;
+    }
+  },
+
+  /**
+   * Delete a meal
+   */
+  deleteMeal: async (id: string) => {
+    try {
+      console.log('API deleteMeal - Deleting meal:', id);
+      
+      const response = await apiRequest<{ success: boolean; data: { id: string } }>(
+        `/meals/${id}`,
+        'DELETE'
+      );
+      
+      console.log('API deleteMeal - Response:', response);
+      
+      if (!response.data) {
+        console.error('API deleteMeal - Invalid response format:', response);
+        throw new Error('Invalid response format from server');
+      }
+      
+      return response.data;
+    } catch (error) {
+      console.error('API deleteMeal - Error details:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Add ingredient to meal
+   */
+  addIngredient: async (mealId: string, ingredientData: any) => {
+    try {
+      console.log('API addIngredient - Sending data:', { mealId, ...ingredientData });
+      
+      const response = await apiRequest<{ success: boolean; data: { ingredient: any } }>(
+        `/meals/${mealId}/ingredients`,
+        'POST',
+        ingredientData
+      );
+      
+      console.log('API addIngredient - Response:', response);
+      
+      if (!response.data || !response.data.ingredient) {
+        console.error('API addIngredient - Invalid response format:', response);
+        throw new Error('Invalid response format from server');
+      }
+      
+      return response.data.ingredient;
+    } catch (error) {
+      console.error('API addIngredient - Error details:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Update ingredient in meal
+   */
+  updateIngredient: async (mealId: string, ingredientId: string, ingredientData: any) => {
+    try {
+      console.log('API updateIngredient - Sending data:', { mealId, ingredientId, ...ingredientData });
+      
+      const response = await apiRequest<{ success: boolean; data: { id: string } }>(
+        `/meals/${mealId}/ingredients/${ingredientId}`,
+        'PUT',
+        ingredientData
+      );
+      
+      console.log('API updateIngredient - Response:', response);
+      
+      if (!response.data) {
+        console.error('API updateIngredient - Invalid response format:', response);
+        throw new Error('Invalid response format from server');
+      }
+      
+      return response.data;
+    } catch (error) {
+      console.error('API updateIngredient - Error details:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Remove ingredient from meal
+   */
+  removeIngredient: async (mealId: string, ingredientId: string) => {
+    try {
+      console.log('API removeIngredient - Removing ingredient:', { mealId, ingredientId });
+      
+      const response = await apiRequest<{ success: boolean; data: { id: string } }>(
+        `/meals/${mealId}/ingredients/${ingredientId}`,
+        'DELETE'
+      );
+      
+      console.log('API removeIngredient - Response:', response);
+      
+      if (!response.data) {
+        console.error('API removeIngredient - Invalid response format:', response);
+        throw new Error('Invalid response format from server');
+      }
+      
+      return response.data;
+    } catch (error) {
+      console.error('API removeIngredient - Error details:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Add all meal ingredients to shopping list
+   */
+  addToShoppingList: async (mealId: string) => {
+    try {
+      console.log('API addToShoppingList - Adding meal ingredients to shopping list:', mealId);
+      
+      const response = await apiRequest<{ success: boolean; data: { count: number; items: string[] } }>(
+        `/meals/${mealId}/shopping`,
+        'POST'
+      );
+      
+      console.log('API addToShoppingList - Response:', response);
+      
+      if (!response.data) {
+        console.error('API addToShoppingList - Invalid response format:', response);
+        throw new Error('Invalid response format from server');
+      }
+      
+      return response.data;
+    } catch (error) {
+      console.error('API addToShoppingList - Error details:', error);
+      throw error;
+    }
+  }
+};
+
 export default {
-  groceryItems: groceryItemsApi
+  groceryItems: groceryItemsApi,
+  meals: mealsApi
 };

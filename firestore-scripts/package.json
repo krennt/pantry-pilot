@@ -5,7 +5,11 @@
   "main": "populate-firestore.js",
   "scripts": {
     "populate": "node populate-firestore.js",
-    "verify": "node verify-firestore.js"
+    "verify": "node verify-firestore.js",
+    "backup": "node backup-firestore.js",
+    "restore": "node restore-firestore.js",
+    "update-locations": "node update-store-locations.js",
+    "update-categories": "node update-categories-and-locations.js"
   },
   "dependencies": {
     "firebase-admin": "^11.8.0"
